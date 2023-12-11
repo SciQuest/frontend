@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -37,6 +39,8 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
+  const [error, setError] = useState<string>("");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -134,6 +138,12 @@ export default function RegisterForm() {
         <Button type="submit" className="w-full">
           Register
         </Button>
+
+        {error && (
+          <p className="text-destructive font-semibold text-center max-w-xs break-words">
+            {error}
+          </p>
+        )}
       </form>
     </Form>
   );
