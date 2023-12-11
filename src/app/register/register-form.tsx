@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+import api from "@/lib/api";
 
 const formSchema = z.object({
   first_name: z
@@ -39,7 +42,9 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
-  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,7 +58,56 @@ export default function RegisterForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setLoading(true);
+
+    if (values.password !== values.confirm_password) {
+      form.setError("confirm_password", {
+        message: "password incorrect",
+        type: "value",
+      });
+
+      setLoading(false);
+      return;
+    }
+
+    api
+      .post("/auth/register/", {
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        setLoading(false);
+        router.push("/login");
+      })
+      .catch((error) => {
+        setLoading(false);
+
+        const errorData = error.response.data;
+        errorData.first_name &&
+          form.setError("first_name", {
+            message: errorData.first_name[0],
+            type: "value",
+          });
+        errorData.last_name &&
+          form.setError("last_name", {
+            message: errorData.last_name[0],
+            type: "value",
+          });
+        errorData.email &&
+          form.setError("email", {
+            message: errorData.email[0],
+            type: "value",
+          });
+        errorData.password &&
+          form.setError("password", {
+            message: errorData.password[0],
+            type: "value",
+          });
+
+        console.error("Registration failed:", error);
+      });
   }
 
   return (
@@ -135,15 +189,9 @@ export default function RegisterForm() {
 
         <br />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={loading}>
           Register
         </Button>
-
-        {error && (
-          <p className="text-destructive font-semibold text-center max-w-xs break-words">
-            {error}
-          </p>
-        )}
       </form>
     </Form>
   );
