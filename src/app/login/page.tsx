@@ -13,8 +13,8 @@ import LoginForm from "@/app/login/login-form";
 
 export default function LoginPage() {
   return (
-    <main className="flex w-full h-full items-center justify-center">
-      <Card>
+    <main className="flex w-full min-h-full items-center justify-center py-4 px-2">
+      <Card className="shadow-xl">
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
