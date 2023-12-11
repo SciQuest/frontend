@@ -129,6 +129,8 @@ export default function RegisterForm() {
           )}
         />
 
+        <br />
+
         <Button type="submit" className="w-full">
           Register
         </Button>

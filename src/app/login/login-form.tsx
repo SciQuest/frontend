@@ -72,6 +72,8 @@ export default function LoginForm() {
           )}
         />
 
+        <br />
+
         <Button type="submit" className="w-full">
           Login
         </Button>
