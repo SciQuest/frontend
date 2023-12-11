@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import api from "@/lib/api";
+
 const formSchema = z.object({
   email: z
     .string()
@@ -29,6 +32,9 @@ const formSchema = z.object({
 
 export default function LoginForm() {
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,7 +45,23 @@ export default function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setLoading(true);
+    api
+      .post("/auth/token/", {
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        localStorage.setItem("accessToken", response.data.access);
+        localStorage.setItem("refreshToken", response.data.refresh);
+
+        setLoading(false);
+        router.push("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error.response.data.detail);
+      });
   }
 
   return (
@@ -78,7 +100,7 @@ export default function LoginForm() {
 
         <br />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={loading}>
           Login
         </Button>
 
