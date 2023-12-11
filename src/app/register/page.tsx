@@ -13,8 +13,8 @@ import RegisterForm from "@/app/register/register-form";
 
 export default function RegisterPage() {
   return (
-    <main className="flex w-full min-h-full items-center justify-center py-4 px-2">
-      <Card className="shadow-xl">
+    <main className="flex w-full min-h-full items-center justify-center py-4 md:px-2">
+      <Card className="shadow-xl w-[90%] md:w-1/2 max-w-lg">
         <CardHeader>
           <CardTitle>Create an account</CardTitle>
           <CardDescription>
