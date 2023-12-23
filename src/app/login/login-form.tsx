@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import api from "@/lib/api";
+import { getUser, onLoginRoutesMap } from "@/lib/auth";
 
 const formSchema = z.object({
   email: z
@@ -55,8 +56,13 @@ export default function LoginForm() {
         localStorage.setItem("accessToken", response.data.access);
         localStorage.setItem("refreshToken", response.data.refresh);
 
-        setLoading(false);
-        router.push("/");
+        getUser().then((user) => {
+          setLoading(false);
+
+          router.push(
+            onLoginRoutesMap[user.role as "ADMIN" | "MODERATOR" | "USER"]
+          );
+        });
       })
       .catch((error) => {
         setLoading(false);

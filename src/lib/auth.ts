@@ -5,12 +5,18 @@ import { useRouter } from "next/navigation";
 
 import api from "@/lib/api";
 
+export const onLoginRoutesMap = {
+  ADMIN: "/",
+  MODERATOR: "/",
+  USER: "/",
+};
+
 export function ProtectedComponent({
   children,
-  role,
+  roles,
 }: {
   children: React.ReactNode;
-  role: "USER" | "MODERATOR" | "ADMIN";
+  roles: ("USER" | "MODERATOR" | "ADMIN")[];
 }) {
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const router = useRouter();
@@ -20,26 +26,26 @@ export function ProtectedComponent({
       const user = await getUser();
 
       if (user) {
-        if (
-          user.role === role ||
-          user.role === "ADMIN" ||
-          (user.role === "MODERATOR" && role !== "ADMIN")
-        ) {
+        if (roles.includes(user.role)) {
           setIsAuth(true);
         } else {
           router.push("/login");
         }
       } else {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        logout();
         router.push("/login");
       }
     };
 
     authenticate();
-  }, [role, router]);
+  }, [roles, router]);
 
   return isAuth ? children : null;
+}
+
+export function logout() {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
 }
 
 export async function getUser() {
