@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 
 export const onLoginRoutesMap = {
-  ADMIN: "/",
-  MODERATOR: "/",
-  USER: "/",
+  ADMIN: "/home",
+  MODERATOR: "/home",
+  USER: "/home",
 };
 
 export function ProtectedComponent({
