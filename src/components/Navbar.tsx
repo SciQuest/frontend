@@ -29,16 +29,23 @@ const Navbar = () => {
   return (
     <div className="">
       <nav className="w-full flex py-3  justify-between items-center  ">
-        <Image priority src={logo} height={40} width={140}className="ml-5" alt="SciQuest" />
+        <Image
+          priority
+          src={logo}
+          height={40}
+          width={140}
+          className="ml-5"
+          alt="SciQuest"
+        />
 
         <ul className="list-none sm:flex hidden justify-end items-center flex-1">
           {navLinks.map((nav, index) => (
             <li
               key={nav.id}
-              className={` rounded-lg ring ring-gray-500 py-2 px-4 font-normal cursor-pointer text-[16px] ${
+              className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] ${
                 active === nav.title
                   ? "text-white bg-blue-500 ring-blue-500"
-                  : "text-black bg-gray-300"
+                  : "text-black bg-gray-300 ring-gray-500"
               } ${index === navLinks.length - 1 ? "mr-10" : "mr-10"}`}
               onClick={() => setActive(nav.title)}
             >
