@@ -7,9 +7,73 @@ import logo from "../../public/assets/logo.svg";
 import close from "../../public/assets/close.svg";
 import menu from "../../public/assets/menu.svg";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  const AlertLogOutXL = () => {
+    return (
+      <div>
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <div className="hover:bg-gray-400 rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] text-black bg-gray-300 ring-gray-500 ">
+              <p>Log Out</p>
+            </div>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Clicking on confirm will log you off from your account
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Confirm</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+    );
+  };
+
+  const AlertLogOutXS = () => {
+    return (
+      <div>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <div className="font-medium cursor-pointer text-[16px] text-black mt-4 hover:text-red-600">
+            <p>Log Out</p>
+          </div>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Clicking on confirm will log you off from your account
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Confirm</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      </div>
+    );
+  };
 
   const navLinks = [
     {
@@ -20,10 +84,10 @@ const Navbar = () => {
       id: "favorites",
       title: "Favorites",
     },
-    {
-      id: "log out",
-      title: "Log out ",
-    },
+    // {
+    //   id: "log out",
+    //   title: "Log out ",
+    // },
   ];
 
   return (
@@ -38,20 +102,23 @@ const Navbar = () => {
           alt="SciQuest"
         />
 
-        <ul className="list-none sm:flex hidden justify-end items-center flex-1">
+        <ul className="list-none sm:flex hidden justify-end items-center flex-1 mr-6 md:mr-10 ">
           {navLinks.map((nav, index) => (
             <li
               key={nav.id}
               className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] ${
                 active === nav.title
                   ? "text-white bg-blue-500 ring-blue-500"
-                  : "text-black bg-gray-300 ring-gray-500"
+                  : "text-black bg-gray-300 ring-gray-500 hover:bg-gray-400 "
               } ${index === navLinks.length - 1 ? "mr-10" : "mr-10"}`}
               onClick={() => setActive(nav.title)}
             >
               <a href={`#${nav.id}`}>{nav.title}</a>
             </li>
           ))}
+          <li>
+            <AlertLogOutXL />{" "}
+          </li>
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -72,7 +139,7 @@ const Navbar = () => {
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
+            } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-50 rounded-xl sidebar`}
           >
             <ul className="list-none flex justify-end items-start flex-1 flex-col">
               {navLinks.map((nav, index) => (
@@ -86,6 +153,9 @@ const Navbar = () => {
                   <a href={`#${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
+              <li>
+                <AlertLogOutXS />
+              </li>
             </ul>
           </div>
         </div>
