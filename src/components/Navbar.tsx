@@ -92,7 +92,7 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      id: "/",
+      id: "/home",
       title: "Home",
     },
     {
@@ -128,7 +128,7 @@ const Navbar = () => {
               } ${index === navLinks.length - 1 ? "mr-10" : "mr-10"}`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={`${nav.id}`}>{nav.title}</a>
             </li>
           ))}
           <li>
