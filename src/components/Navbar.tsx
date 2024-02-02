@@ -19,9 +19,22 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { logout } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  const router = useRouter();
+
+  function clickLogout(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    event.preventDefault();
+    logout();
+    router.refresh();
+  }
 
   const AlertLogOutXL = () => {
     return (
@@ -41,7 +54,9 @@ const Navbar = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Confirm</AlertDialogAction>
+              <AlertDialogAction onClick={clickLogout}>
+                Confirm
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -52,25 +67,25 @@ const Navbar = () => {
   const AlertLogOutXS = () => {
     return (
       <div>
-      <AlertDialog>
-        <AlertDialogTrigger>
-          <div className="font-medium cursor-pointer text-[16px] text-black mt-4 hover:text-red-600">
-            <p>Log Out</p>
-          </div>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Clicking on confirm will log you off from your account
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Confirm</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <div className="font-medium cursor-pointer text-[16px] text-black mt-4 hover:text-red-600">
+              <p>Log Out</p>
+            </div>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Clicking on confirm will log you off from your account
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Confirm</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   };
