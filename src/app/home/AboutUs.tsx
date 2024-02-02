@@ -13,67 +13,43 @@ const AboutUS = () => {
       <div className=" my-10 w-full   ">
         <h1 className=' text-4xl font-extralight text-center mb-10'>What is SciQuest</h1>
           {/********************************************************************************************************************* */}
-        <div className=" max-w-[1400px] mx-auto lg:grid  xl:gap-10 xl:grid-cols-4 lg:grid-cols-2 lg:gap-5   flex flex-wrap">
-          <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col  p-2 xl:p-4 my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300 ">
-            
-            <h2 className="text-2xl font-bold text-center py-8">
-              Notre Mission
-            </h2>
-            <p className="text-center text-base py-4 mx-4 font-medium ">
-            Notre mission est de mettre à la disposition des parents un
-            réseau de crèches fiable et facilement accessible pour 
-            trouver une place pour leur enfant. Nous voulons être le 
-            partenaire de confiance des parents.
-
-            </p>
-            
-          </div>
-          {/********************************************************************************************************************* */}
-
-          <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col p-4  my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300">
-          
-            <h2 className="text-2xl font-bold text-center py-8">
-            Notre engagement
-            </h2>
-            <p className="text-center text-base py-4  mx-2 ld:mx-8 font-medium ">
-            Notre nous engageons a fournir un service de qualité à tous 
-            les parents , propriétaires et  enfants 
-            et nous croyons que notre service peut aider à améliorer leur
-            bien-être et leur épanouissement.
-            </p>
-          </div>
-          {/********************************************************************************************************************* */}
+        <div className=" max-w-[800px] lg:max-w-[1100px] mx-auto md:grid  md:gap-10 grid-cols-1 lg:grid-cols-3    flex flex-wrap">
+        
+         
 
           <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col p-4 my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300">
      
             <h2 className="text-2xl font-bold text-center py-8">
-            Nos valeurs
+           Our Team
             </h2>
             <p className="text-center text-base py-4 mx-2 ld:mx-8 font-medium ">
-            Nous sommes animés par des valeurs 
-            fondamentales telles que  la disponibilité, 
-            l'empathie et l'efficacité. Nous sommes à l'écoute de nos 
-            clients et nous somme pret à leur fournir un service de 
-            qualité qui respecte ces valeurs.
+            Our team is comprised of experienced developers and experts in information technology. Together, we form a multidisciplinary force committed to pushing the boundaries of access to scientific knowledge. Through collaboration and expertise, we strive to create innovative solutions that empower and advance the pursuit of scientific understanding
             </p>
           </div>
           {/********************************************************************************************************************* */}
-
-          <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col p-4 my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300">
-           
-            <h2 className="text-2xl font-bold text-center py-8">
-            Notre vocation
-            </h2>
-            <p className="text-center text-sm py-4 mx-2 ld:mx-8 font-medium ">
+          <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col  p-2 xl:p-4 my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300 ">
             
-            Nous avons pour vocation de créer un environnement harmonieux 
-            entre les parents et les structures d'accueil pour enfants, tout 
-            en contribuant à la sérénité et à l'épanouissement de chacun. 
-           Nous pensons que le bien-être des enfants doit être au cœur de 
-             tout projet professionnel et familial.
+            <h2 className="text-2xl font-bold text-center py-8">
+                Our Mission
+            </h2>
+            <p className="text-center text-base py-4 mx-4 font-medium ">
+            Our mission is to simplify the search for scientific articles by providing a competent search engine equipped with multiple advanced filters. We are determined to support the scientific community by facilitating the discovery, sharing, and access to scientific knowledge.
+           
+
+            </p>
+            
+          </div>
+          <div className=" w-full hover:ring-blue-500 ring ring-gray-500 shadow-xl flex flex-col p-4  my-4 mx-2 rounded-3xl hover:bg-blue-500 hover:text-white md:hover:scale-105 duration-300">
+          
+            <h2 className="text-2xl font-bold text-center py-8">
+            Our Commitment
+            </h2>
+            <p className="text-center text-base py-4  mx-2 ld:mx-8 font-medium ">
+            We are committed to facilitating access to a comprehensive and up-to-date database, contributing to the acceleration of global scientific progress. 
+        Our dedication extends to excellence. Our team works tirelessly to ensure the reliability, relevance, and speed of our search engine.
             </p>
           </div>
-          {/********************************************************************************************************************* */}
+        
 
         </div>
         

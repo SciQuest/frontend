@@ -123,8 +123,8 @@ const SearchBar = () => {
   const formRef = useRef();
 
   return (
-    <div className="  mt-1 mx-auto max-w-[900px] w-full flex flex-col justify-center text-center text-black p-4">
-      <div className="SearchBar flex flex-col mt-4">
+    <div className="  mx-auto max-w-[850px] w-full  justify-center text-center text-black p-4">
+      <div className=" flex flex-col">
         {/* <form
                     className="flex justify-between items-center max-w-[700px] mx-auto w-full border border-[#ED6361] p-1
           rounded-xl text-white bg-[#63132f] ring ring-[#d84f4f] hover:scale-105 duration-75 pr-2"
@@ -185,10 +185,10 @@ const SearchBar = () => {
                 placeholder="Search for title, author, keywords, plaintext.."
                 // onChange={handleTextChange}
               />
-              <div className="  absolute right-3 bottom-[8px] ">
+              <div className="  absolute right-2 md:right-3 bottom-[12px] md:bottom-[8px] ">
                 <button
                   type="submit"
-                  className="text-black  bg-[#f8f7f7] ring-2 ring-gray-500 hover:scale-105 duration-300 hover:bg-blue-500 hover:ring-blue-500 hover:text-white font-medium rounded-lg text-sm px-5 py-2   "
+                  className="text-black  bg-[#f8f7f7] ring-2 ring-gray-500 hover:scale-105 duration-300 hover:bg-blue-500 hover:ring-blue-500 hover:text-white font-medium rounded-lg text-sm px-3 md:px-5 py-1 md:py-2   "
                 >
                   Search
                 </button>
