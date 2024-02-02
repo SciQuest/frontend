@@ -82,7 +82,9 @@ const Navbar = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Confirm</AlertDialogAction>
+              <AlertDialogAction onClick={clickLogout}>
+                Confirm
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -121,11 +123,9 @@ const Navbar = () => {
           {navLinks.map((nav, index) => (
             <li
               key={nav.id}
-              className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] ${
-                active === nav.title
-                  ? "text-white bg-blue-500 ring-blue-500"
-                  : "text-black bg-gray-300 ring-gray-500 hover:bg-gray-400 "
-              } ${index === navLinks.length - 1 ? "mr-10" : "mr-10"}`}
+              className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] text-black bg-gray-300 ring-gray-500 hover:bg-gray-400 ${
+                index === navLinks.length - 1 ? "mr-10" : "mr-10"
+              }`}
               onClick={() => setActive(nav.title)}
             >
               <a href={`${nav.id}`}>{nav.title}</a>
@@ -160,12 +160,12 @@ const Navbar = () => {
               {navLinks.map((nav, index) => (
                 <li
                   key={nav.id}
-                  className={` font-medium cursor-pointer text-[16px] ${
-                    active === nav.title ? "text-blue-500" : "text-black"
-                  } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
+                  className={` font-medium cursor-pointer text-[16px] text-black ${
+                    index === navLinks.length - 1 ? "mb-0" : "mb-4"
+                  }`}
                   onClick={() => setActive(nav.title)}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a href={`${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
               <li>
