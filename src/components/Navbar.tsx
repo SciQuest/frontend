@@ -98,7 +98,7 @@ const Navbar = () => {
       title: "Home",
     },
     {
-      id: "favorites",
+      id: "/favorites",
       title: "Favorites",
     },
     // {

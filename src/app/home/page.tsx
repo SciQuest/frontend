@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 
 const Home = () => {
   return (
-    <ProtectedComponent roles={["ADMIN", "MODERATOR", "USER"]}>
+    <ProtectedComponent roles={["USER"]}>
       <div>
         <Navbar />
         <Hero />

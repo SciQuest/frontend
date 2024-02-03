@@ -20,9 +20,9 @@ function PageContent({
     async function fetchData() {
       let query = "";
 
-      Object.entries(searchQuery).forEach(([key, val]) => {
-        query += `${key}=${val}&`;
-      });
+      if (searchQuery["search_multi_match"]) {
+        query += `search_multi_match=${searchQuery["search_multi_match"]}&`;
+      }
 
       Object.entries(filterQuery).forEach(([key, val]) => {
         query += `${key}=${val}&`;
