@@ -8,7 +8,7 @@ import api from "@/lib/api";
 export const onLoginRoutesMap = {
   ADMIN: "/adminmoderators",
   MODERATOR: "/moderatorarticles",
-  USER: "/",
+  USER: "/home",
 };
 
 export function ProtectedComponent({
