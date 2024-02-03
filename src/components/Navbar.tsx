@@ -19,9 +19,22 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { logout } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  const router = useRouter();
+
+  function clickLogout(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    event.preventDefault();
+    logout();
+    router.refresh();
+  }
 
   const AlertLogOutXL = () => {
     return (
@@ -41,7 +54,9 @@ const Navbar = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Confirm</AlertDialogAction>
+              <AlertDialogAction onClick={clickLogout}>
+                Confirm
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -52,36 +67,38 @@ const Navbar = () => {
   const AlertLogOutXS = () => {
     return (
       <div>
-      <AlertDialog>
-        <AlertDialogTrigger>
-          <div className="font-medium cursor-pointer text-[16px] text-black mt-4 hover:text-red-600">
-            <p>Log Out</p>
-          </div>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Clicking on confirm will log you off from your account
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Confirm</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <div className="font-medium cursor-pointer text-[16px] text-black mt-4 hover:text-red-600">
+              <p>Log Out</p>
+            </div>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Clicking on confirm will log you off from your account
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={clickLogout}>
+                Confirm
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   };
 
   const navLinks = [
     {
-      id: "/",
+      id: "/home",
       title: "Home",
     },
     {
-      id: "favorites",
+      id: "/favorites",
       title: "Favorites",
     },
     // {
@@ -106,14 +123,12 @@ const Navbar = () => {
           {navLinks.map((nav, index) => (
             <li
               key={nav.id}
-              className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] ${
-                active === nav.title
-                  ? "text-white bg-blue-500 ring-blue-500"
-                  : "text-black bg-gray-300 ring-gray-500 hover:bg-gray-400 "
-              } ${index === navLinks.length - 1 ? "mr-10" : "mr-10"}`}
+              className={` rounded-lg ring-2  py-2 px-4 font-normal cursor-pointer text-[16px] text-black bg-gray-300 ring-gray-500 hover:bg-gray-400 ${
+                index === navLinks.length - 1 ? "mr-10" : "mr-10"
+              }`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={`${nav.id}`}>{nav.title}</a>
             </li>
           ))}
           <li>
@@ -145,12 +160,12 @@ const Navbar = () => {
               {navLinks.map((nav, index) => (
                 <li
                   key={nav.id}
-                  className={` font-medium cursor-pointer text-[16px] ${
-                    active === nav.title ? "text-blue-500" : "text-black"
-                  } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
+                  className={` font-medium cursor-pointer text-[16px] text-black ${
+                    index === navLinks.length - 1 ? "mb-0" : "mb-4"
+                  }`}
                   onClick={() => setActive(nav.title)}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a href={`${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
               <li>

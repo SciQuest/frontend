@@ -112,13 +112,16 @@ export default function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-3 sm:space-y-0 md:space-y-1 lg:space-y-3"
+      >
         <FormField
           control={form.control}
           name="first_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel className="font-bold">First Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your first name" {...field} />
               </FormControl>
@@ -131,7 +134,7 @@ export default function RegisterForm() {
           name="last_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel className="font-bold">Last Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your last name" {...field} />
               </FormControl>
@@ -144,7 +147,7 @@ export default function RegisterForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="font-bold">Email</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your email" {...field} />
               </FormControl>
@@ -157,7 +160,7 @@ export default function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="font-bold">Password</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -174,7 +177,7 @@ export default function RegisterForm() {
           name="confirm_password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="font-bold">Confirm Password</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -189,8 +192,12 @@ export default function RegisterForm() {
 
         <br />
 
-        <Button type="submit" className="w-full" disabled={loading}>
-          Register
+        <Button
+          type="submit"
+          className="w-full  bg-blue-500"
+          disabled={loading}
+        >
+          Create Account
         </Button>
       </form>
     </Form>

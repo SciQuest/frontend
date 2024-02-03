@@ -73,7 +73,10 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className=" space-y-2 sm:space-y-0 md:space-y-4 "
+      >
         <FormField
           control={form.control}
           name="email"
@@ -107,8 +110,12 @@ export default function LoginForm() {
 
         <br />
 
-        <Button type="submit" className="w-full" disabled={loading}>
-          Login
+        <Button
+          type="submit"
+          className="bg-blue-500 w-full  "
+          disabled={loading}
+        >
+          Log into your account
         </Button>
 
         {error && (

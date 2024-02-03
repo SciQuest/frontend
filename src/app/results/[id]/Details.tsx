@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Bookmark,
@@ -11,54 +11,64 @@ import {
   BookOpenCheck,
   FileKey2,
 } from "lucide-react";
-import { articles } from "@/components/data";
-import { useRouter } from "next/router";
 
-const Details = () => {
+import api from "@/lib/api";
+
+const Details = ({ id }: { id: string }) => {
   const [savedState, setSavedState] = useState(false);
+  const [article, setArticle] = useState<any>(null);
+  const [loading1, setLoading1] = useState<boolean>(true);
+  const [loading2, setLoading2] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
-  const handleSaveClick = () => {
-    setSavedState((prevState) => !prevState);
+  useEffect(() => {
+    async function fetchData() {
+      setLoading1(true);
+      try {
+        const response = await api.get("/api/favorites/");
+        const favorites = response.data;
+
+        setSavedState(favorites.some((article: any) => article.id == id));
+      } catch (e) {
+        console.log(e);
+        setError("something went wrong (todo: update this message)");
+      }
+      setLoading1(false);
+    }
+
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading2(true);
+      try {
+        const response = await api.get(`/api/articles/${id}`);
+        setArticle(response.data);
+      } catch (e: any) {
+        console.log(e);
+        setError(e.response.data.detail || e.message);
+      }
+      setLoading2(false);
+    }
+
+    fetchData();
+  }, [id]);
+
+  const handleSaveClick = async () => {
+    const saved: boolean = savedState;
+    if (saved) {
+      await api.delete(`/api/favorites/${article.id}/`);
+      setSavedState(false);
+    } else {
+      await api.post(`/api/favorites/${article.id}/`);
+      setSavedState(true);
+    }
   };
 
-  const article = {
-    id: "1",
-    title: "Computer Science",
-    resume:
-      "Lorem labore voluptatem quase voluptates consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis lorem totaconsectetur adipisicing elit. Velit ea itaque ad aliquam lorem veritatis tota asperiores ipsum perferendis delectus",
-    date: "04.11.2024",
-    authors: [
-      { id: "1", name: "wassim cheref" },
-      { id: "2", name: "melzi mounir" },
-      { id: "3", name: "benghanem Abderaouf" },
-    ],
-    institutions: [
-      {
-        id: "1",
-        name: "Higher National School of Computer Scicence Algiers",
-      },
-      { id: "2", name: "University Of Algiers 3" },
-    ],
-    keywords: [
-      "aaaaaaaaa",
-      "aaaaaaaaaaaaaab",
-      "caaaaaaaaaaaaaaaaaa",
-      " jjjjjjjjjjjjjjjj",
-      "kkkkkkkkkkkkkkkkk",
-    ],
+  if (loading1 || loading2) return <div>Loading</div>;
 
-    urlpdf: "",
-    bibliographicReferences: [
-      "Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em",
-      "Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em",
-      "Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em",
-      "Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em",
-      "Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em",
-    ],
-    integralText:
-      " Lorem, ipsum dolor sit amet  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em,  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em,  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em,  ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam,em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, ipsum dolor sit amet consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam elig em, consectetur adipisicing elit. Velit ea itaque ad aliquam veritatis totam, rem ducimus expedita illum ipsam eligendi inventore exercitationem commodi, aut illo aliquid iste, et officia.",
-    image: "/assets/homeIMG.svg",
-  };
+  if (error) return <div>{error}</div>;
 
   return (
     <>
@@ -83,13 +93,13 @@ const Details = () => {
                     <div className="relative bg-blue-400 w-[2px]  h-full"></div>
                   </div>
                   <ul className="">
-                    {article.authors.map((author, i) => (
+                    {article.authors.map((author: any, i: number) => (
                       <li key={i}>
                         <p className="font-semibold">
                           <span className="font-bold md:font- text-black md:text-gray-300">
                             .
                           </span>
-                          {author.name}
+                          {author}
                         </p>
                       </li>
                     ))}
@@ -101,13 +111,13 @@ const Details = () => {
                     <div className="relative bg-blue-400 w-[2px]  h-full"></div>
                   </div>
                   <ul className="">
-                    {article.institutions.map((instituion, i) => (
+                    {article.institutions.map((instituion: any, i: number) => (
                       <li key={i}>
                         <p className="font-semibold">
                           <span className="font-bold md:font-normal  text-black md:text-gray-300">
                             .
                           </span>
-                          {instituion.name}
+                          {instituion}
                         </p>
                       </li>
                     ))}
@@ -139,13 +149,13 @@ const Details = () => {
               <div>
                 <p>
                   {" "}
-                  <span className="font-semibold">{article.date}</span>
+                  <span className="font-semibold">{article.date.slice(0, 10)}</span>
                 </p>
               </div>
             </div>
             <div className="mt-3 p-3 md:p-5 border-t-2 border-blue-400">
               <a
-                href="/files/ResAnum.pdf"
+                href={`${process.env.NEXT_PUBLIC_API_URL}${article.pdf}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className=" hover:text-blue-700 text-red-600 font-semibold flex flex-row  items-center  gap-2 w-[130px]"
@@ -154,7 +164,7 @@ const Details = () => {
                 <p>View PDF ?</p>
               </a>
               <div className="mt-4 text-black text-sm md:text-base ">
-                <p>{article.integralText}</p>
+                <p>{article.text}</p>
               </div>
             </div>
             <div className="mt-3 p-3 md:p-5 border-t-2 border-blue-400">
@@ -168,7 +178,7 @@ const Details = () => {
                   </div>
 
                   <div className="flex flex-col my-3">
-                    {article.bibliographicReferences.map((refs, i) => (
+                    {article.references.map((refs :string, i :number) => (
                       <p key={i} className="">
                         <span className="font-semibold text-lg md:text-xl text-blue-500">
                           [
@@ -186,7 +196,7 @@ const Details = () => {
                       <h1 className="font-bold">Keywords</h1>
                     </div>
                     <div className=" mt-3 ">
-                      {article.keywords.map((keyword, i) => (
+                      {article.keywords.map((keyword : string, i : number) => (
                         <p key={i} className="">
                           <span className="font-semibold text-lg md:text-xl text-blue-500">
                             [
