@@ -112,7 +112,10 @@ export default function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 sm:space-y-0 md:space-y-1 lg:space-y-3">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-3 sm:space-y-0 md:space-y-1 lg:space-y-3"
+      >
         <FormField
           control={form.control}
           name="first_name"
@@ -189,7 +192,11 @@ export default function RegisterForm() {
 
         <br />
 
-        <Button type="submit" className="w-full  bg-blue-500" disabled={loading}>
+        <Button
+          type="submit"
+          className="w-full  bg-blue-500"
+          disabled={loading}
+        >
           Create Account
         </Button>
       </form>
