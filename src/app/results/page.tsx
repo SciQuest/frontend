@@ -1,21 +1,17 @@
-import React from 'react'
+import Navbar from "@/components/Navbar";
 
-import SearchResults from '@/app/results/SearchResults'
-import Navbar from '@/components/Navbar'
-import SearchBar from '@/components/SearchBar'
-import Filters from '@/components/Filters'
-const page = () => {
+import PageContent from "./PageContent";
+const page = ({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
   return (
     <div>
-      <Navbar/>
-      <div className='flex flex-col justify-center items-center space-x-2'>
-      <SearchBar/>
-    
-      <Filters/>
-      </div>
-      <SearchResults/>
+      <Navbar />
+      <PageContent searchParams={searchParams} />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

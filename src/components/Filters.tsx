@@ -3,7 +3,7 @@ import React from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
 
-const Filters = () => {
+const Filters = ({ filterQuery, setFilterQuery }: any) => {
   const [open, setOpen] = useState(false);
   const [filters, setFilter] = useState({});
   const [selectedjours, setSelectedjours] = useState([]);
@@ -130,7 +130,6 @@ const Filters = () => {
                        </div> */}
               </div>
             </div>
-          
           </div>
         </div>
       )}
