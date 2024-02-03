@@ -12,7 +12,7 @@ function Articles({ articles }: { articles: any[] }) {
               Article&apos;s Name
             </th>
             <th scope="col" className="text-white px-6 py-3">
-              Author
+              Date
             </th>
           </tr>
         </thead>
