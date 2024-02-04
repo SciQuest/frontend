@@ -39,13 +39,13 @@ function UploadButton({
   return (
     <div className="flex mx-auto my-2 items-center justify-center">
       <label
-        className=" mb-2 text-sm font-bold mx-2 text-blue-500 "
+        className=" mb-2 text-sm font-bold mx-2 text-gray-900 "
         htmlFor="file_input"
       >
         Upload PDF
       </label>
       <input
-        className="text-blue-500 px-2 py-4 border border-gray-300 rounded-lg cursor-pointer bg-blue-100  focus:outline-none  "
+        className="text-blue-500 px-2 py-4 border border-gray-500 rounded-lg cursor-pointer bg-gray-100  focus:outline-none  "
         id="file_input"
         type="file"
         accept="pdf"

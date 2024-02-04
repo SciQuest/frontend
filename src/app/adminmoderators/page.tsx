@@ -2,11 +2,14 @@
 // ./src/app/admin/page.tsx
 // @ts-nocheck
 // use client
+import User from "./user";
+import SheetModifyModerator from "./sheetModifyModerator";
+import Alert from "./Alert";
+import AlertLogOut from "@/components/AlertLogOut";
 
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import PopUp from "./PopUp";
+import SheetAddModerator from "./sheetAddModerator";
+
 import { useState } from "react";
-import Link from "next/link";
 
 import { ProtectedComponent } from "@/lib/auth";
 
@@ -21,231 +24,104 @@ export default function AdminPage() {
     setShowPopup(false);
   };
 
+  const moderators = [
+    {
+      id: "1",
+      lastname: " wassim",
+      firstname: "cheref ",
+      email: "neil.sims@ddd.com",
+    },
+    {
+      id: "2",
+      lastname: " mounir",
+      firstname: "melzi ",
+      email: "qqqqq.bbbbb@ddd.com",
+    },
+    {
+      id: "3",
+      lastname: " hhhhh",
+      firstname: "jjjjjj ",
+      email: "zzzzzzz.aaaa@ddd.com",
+    },
+  ];
+
   return (
     <ProtectedComponent roles={["ADMIN"]}>
-      <div className="flex h-screen">
-        <div className=" bg-blue-500 items-center justify-center   w-1/5">
-          <p className=" text-center text-3xl text-white font-semibold pt-[40%] pb-5  ">
-            {" "}
-            Benghanem Abderaouf{" "}
-          </p>
-          <p className=" text-center text-xl text-blue-500 font-semibold py-5  bg-white  ">
-            {" "}
-            List of moderators{" "}
-          </p>
-          <p className=" text-center text-xl text-white font-semibold  py-5 ">
-            {" "}
-            <a href="adminarticles">List of articles </a>{" "}
-          </p>
+      <div className="flex flex-row items-center justify-between my-5  ">
+        <div className="ml-1 md:ml-5  rounded-lg px-5 py-1 ">
+          {" "}
+          <User />
         </div>
+        <div className="flex flex-row gap-x-2 md:gap-x-5 mr-2 md:mr-10">
+          <a href="adminarticles">
+            <div className=" bg-gray-300 text-sm sm:text-base rounded-lg px-2 sm:px-3 md:px-5 py-2 md:py-3  hover:bg-blue-500 hover:text-white hover:ring-blue-700">
+              Articles
+            </div>
+          </a>
 
-        <div className="relative overflow-x-auto w-4/5 px-2 bg-gray-50  shadow-md sm:rounded-lg">
-          <p className=" text-center text-4xl  py-12  font-extrabold text-blue-500   mb-2 ">
-            {" "}
-            List of moderators{" "}
+          <AlertLogOut />
+
+          <div className="bg-white text-base md:text-xl px-3 md:px-5 py-2 md:py-3">
+            Moderators{" "}
+          </div>
+        </div>
+      </div>
+
+      <div className="  px-2  sm:rounded-lg">
+        <h1 className=" text-center text-4xl  py-12  font-light text-black  ">
+          {" "}
+          List of moderators{" "}
+        </h1>
+
+        <div className="flex flex-col md:flex-row mx-auto my-2 items-center justify-center">
+          <p className=" mb-2 text-sm font-bold mx-2 text-gray-900 ">
+            Add a moderator
           </p>
-          {showButton && (
-            <button
-              onClick={() => {
-                openPopup();
-              }}
-              className=" bg-blue-500 justify-self-end  rounded-md my-2 mx-2 font-medium text-center hover:scale-105 duration-75 hover:bg-blue-600"
-              title="Ajouter"
-            >
-              <p className="cursor-pointer text-white   mx-2 my-2  "> + Add </p>
-            </button>
-          )}
-          {showPopup && (
-            <PopUp
-              content={
-                <>
-                  <div className="bg-black">jqfjsqfhqhf</div>
-                </>
-              }
-              closePopup={closePopup}
-            />
-          )}
-
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 border border-blue-500  dark:text-gray-400">
-            <thead className=" text- text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr className=" bg-blue-500">
-                <th scope="col" className=" text-white px-8 py-3">
-                  First Name
-                </th>
-                <th scope="col" className="text-white px-6 py-3">
-                  Last Name
-                </th>
-                <th scope="col" className="text-white px-6 py-3">
-                  Email
-                </th>
-                <th scope="col" className="text-white px-6 py-3"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-blue-500 whitespace-nowrap dark:text-white"
-                >
-                  <div className="ps-3">
-                    <div className="text-base font-semibold">Neil </div>
-                  </div>
-                </th>
-                <td className="px-6 py-4 text-blue-500 whitespace-nowrap text-base font-semibold">
-                  Sims
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center text-blue-500 whitespace-nowrap text-base font-semibold">
-                    neil.sims@ddd.com
+        
+          <SheetAddModerator/>
+        </div>
+        <div className="mx-1 mt-5 overflow-x-auto">
+        <table className="mx-auto  lg:w-3/4 md:w-4/5 w-11/12 items-center text-sm text-left rtl:text-right text-gray-500 border-2 border-gray-700">
+          <thead className="text-gray-700 bg-gray-100">
+            <tr className="bg-gray-400">
+              <th scope="col" className="w-1/4 text-gray-900 px-8 py-3">
+                First Name
+              </th>
+              <th scope="col" className="w-1/4 text-gray-900 px-6 py-3">
+                Last Name
+              </th>
+              <th scope="col" className="w-1/4 text-gray-900 px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="w-1/4 text-gray-900 px-6 py-3">
+                Manage
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {moderators.map((moderator, i) => (
+              <tr className="bg-gray-200 border-t-2 border-gray-700 hover:bg-gray-50" key={i}>
+                <td className="w-1/4 px-6 py-4 text-gray-900 whitespace-nowrap">
+                  <div className="text-base font-semibold">
+                    {moderator.firstname}
                   </div>
                 </td>
-                <td className="px-6 py-4">
-                  {showButton && (
-                    <button
-                      onClick={() => {
-                        openPopup();
-                      }}
-                      className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                      title="Modifier"
-                    >
-                      <AiFillEdit
-                        size={15}
-                        className=" text-center text-white cursor-pointer  mx-2 my-2"
-                      />
-                    </button>
-                  )}
-                  {showPopup && (
-                    <PopUp
-                      content={
-                        <>
-                          <div className="bg-black">jqfjsqfhqhf</div>
-                        </>
-                      }
-                      closePopup={closePopup}
-                    />
-                  )}
-
-                  <button
-                    className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                    title="Supprimer"
-                  >
-                    <AiFillDelete
-                      size={15}
-                      className=" text-center text-white cursor-pointer  mx-2 my-2"
-                    />
-                  </button>
+                <td className="w-1/4 px-6 py-4 text-gray-900 font-semibold whitespace-nowrap">
+                  {moderator.lastname}
+                </td>
+                <td className="w-1/4 px-6 py-4">
+                  <div className="flex items-center text-gray-900 font-semibold whitespace-nowrap">
+                    {moderator.email}
+                  </div>
+                </td>
+                <td className="w-1/4 px-6 py-4 flex flex-row">
+                  <SheetModifyModerator />
+                  <Alert />
                 </td>
               </tr>
-              <tr className="bg-white border-b  hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-blue-500 whitespace-nowrap dark:text-white"
-                >
-                  <div className="ps-3">
-                    <div className="text-base font-semibold">Neil </div>
-                  </div>
-                </th>
-                <td className="px-6 py-4 text-blue-500 whitespace-nowrap text-base font-semibold">
-                  Sims
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center text-blue-500 whitespace-nowrap text-base font-semibold">
-                    neil.sims@ddd.com
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  {showButton && (
-                    <button
-                      onClick={() => {
-                        openPopup();
-                      }}
-                      className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                      title="Modifier"
-                    >
-                      <AiFillEdit
-                        size={15}
-                        className=" text-center text-white cursor-pointer  mx-2 my-2"
-                      />
-                    </button>
-                  )}
-                  {showPopup && (
-                    <PopUp
-                      content={
-                        <>
-                          <div className="bg-black">jqfjsqfhqhf</div>
-                        </>
-                      }
-                      closePopup={closePopup}
-                    />
-                  )}
-
-                  <button
-                    className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                    title="Supprimer"
-                  >
-                    <AiFillDelete
-                      size={15}
-                      className=" text-center text-white cursor-pointer  mx-2 my-2"
-                    />
-                  </button>
-                </td>
-              </tr>
-              <tr className="bg-white border-b hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="flex items-center px-6 py-4 text-blue-500 whitespace-nowrap dark:text-white"
-                >
-                  <div className="ps-3">
-                    <div className="text-base font-semibold">Neil </div>
-                  </div>
-                </th>
-                <td className="px-6 py-4 text-blue-500 whitespace-nowrap text-base font-semibold">
-                  Sims
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center text-blue-500 whitespace-nowrap text-base font-semibold">
-                    neil.sims@ddd.com
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  {showButton && (
-                    <button
-                      onClick={() => {
-                        openPopup();
-                      }}
-                      className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                      title="Modifier"
-                    >
-                      <AiFillEdit
-                        size={15}
-                        className=" text-center text-white cursor-pointer  mx-2 my-2"
-                      />
-                    </button>
-                  )}
-                  {showPopup && (
-                    <PopUp
-                      content={
-                        <>
-                          <div className="bg-black">jqfjsqfhqhf</div>
-                        </>
-                      }
-                      closePopup={closePopup}
-                    />
-                  )}
-
-                  <button
-                    className=" bg-blue-500 mx-2 justify-self-end  rounded-md font-medium text-center  ring ring-[#081060]  hover:scale-105 duration-75 hover:bg-blue-600"
-                    title="Supprimer"
-                  >
-                    <AiFillDelete
-                      size={15}
-                      className=" text-center text-white cursor-pointer  mx-2 my-2"
-                    />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
         </div>
       </div>
     </ProtectedComponent>
