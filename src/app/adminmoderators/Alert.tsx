@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,9 +12,27 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
+import api from "@/lib/api";
 
-const Alert = () => {
+const Alert = ({
+  moderator,
+  moderators,
+  setModerators,
+}: {
+  moderator: any;
+  moderators: any[];
+  setModerators: any;
+}) => {
+  async function handleDelete() {
+    try {
+      await api.delete(`/auth/moderators/${moderator.id}`);
+      setModerators(moderators.filter((mod) => mod.id != moderator.id));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
       <AlertDialog>
@@ -39,7 +57,9 @@ const Alert = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={handleDelete}>
+              Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
