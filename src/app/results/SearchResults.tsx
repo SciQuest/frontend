@@ -76,7 +76,7 @@ const Article = ({ articles }: { articles: any[] }) => {
                   <Link
                     href={`/results/${article.id}`}
                     passHref
-                    className="border-b-2 border-blue-500 text-blue-500 font-normal"
+                    className="border-b-2 border-blue-500 text-blue-500 hover:text-blue-700 hover:border-blue-700 font-semibold"
                   >
                     Read more
                   </Link>
