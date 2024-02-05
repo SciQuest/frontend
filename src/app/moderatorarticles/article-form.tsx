@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import AuthorsInput from "./MultipleInputs/AuthorsInput";
@@ -19,54 +19,89 @@ import KeywordsInput from "./MultipleInputs/KeywordsInput";
 import InstitutionsInput from "./MultipleInputs/InstitutionsInput";
 
 import { Textarea } from "@/components/ui/textarea";
+import api from "@/lib/api";
 
-const Articleform = () => {
+const Articleform = ({
+  article,
+  articles,
+  setArticles,
+}: {
+  article: any;
+  articles: any[];
+  setArticles: any;
+}) => {
+  const [authors, setAuthors] = useState(["", ...article.authors]);
+  const [keywords, setKeywords] = useState(["", ...article.keywords]);
+  const [institutions, setInstitutions] = useState([
+    "",
+    ...article.institutions,
+  ]);
+  const [refs, setRefs] = useState(["", ...article.references]);
+
   const formSchema = z.object({
-    title: z.string().max(255, "Title can't exceed 255 characters"),
+    title: z.string(),
     abstract: z.string(),
     text: z.string(),
-    date: z.string().min(11, "Date must be at least 11 characters"),
-    keywords: z.array(z.string()), // Define validation for array of strings
-    authors: z.array(z.string()), // Define validation for array of strings
-    institutions: z.array(z.string()), // Define validation for array of strings
-    references: z.array(z.string()),
+    date: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      abstract: "",
-      text: "",
-      date: "",
-      keywords: [], // Initial value for array fields
-      authors: [],
-      institutions: [],
-      references: [],
+      title: article.title,
+      abstract: article.abstract,
+      text: article.text,
+      date: article.date.slice(0, 10),
     },
   });
 
-  //   const addAuthorField = () => {
-  //     form.setValue("authors", [...form.getValues("authors"), ""]);
-  //   };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const new_article = {
+      ...values,
+      authors: authors.slice(1),
+      institutions: institutions.slice(1),
+      keywords: keywords.slice(1),
+      references: refs.slice(1),
+    };
 
-  //   const removeAuthorField = (index: number) => {
-  //     const updatedAuthors = form.getValues("authors").filter((_, i) => i !== index);
-  //     form.setValue("authors", updatedAuthors);
-  //   };
+    if (new_article.authors.length == 0) {
+      new_article.authors = [""];
+    }
 
-  //   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data : any) => {
-  //     // Handle form submission
-  //     console.log(data);
-  //   };
+    if (new_article.institutions.length == 0) {
+      new_article.institutions = [""];
+    }
+
+    if (new_article.keywords.length == 0) {
+      new_article.keywords = [""];
+    }
+
+    if (new_article.references.length == 0) {
+      new_article.references = [""];
+    }
+
+    try {
+      const response = await api.put(
+        `/api/articles/${article.id}/`,
+        new_article
+      );
+
+      let arts = articles.filter((a) => a.id != article.id);
+      arts = [response.data, ...arts];
+      setArticles(arts);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <Form {...form}>
       <form
-        //   onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className=" space-y-3  sm:space-y-0 md:space-y-1 lg:space-y-3"
       >
         <FormField
-          // control={form.control}
+          control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
@@ -79,20 +114,20 @@ const Articleform = () => {
           )}
         />
         <FormField
-          // control={form.control}
+          control={form.control}
           name="date"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-bold text-gray-900">Date</FormLabel>
               <FormControl>
-                <Input type="date" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
-          // control={form.control}
+          control={form.control}
           name="abstract"
           render={({ field }) => (
             <FormItem>
@@ -107,20 +142,18 @@ const Articleform = () => {
         />
 
         <FormField
-          // control={form.control}
           name="Authors"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-bold text-gray-900">Authors</FormLabel>
               <FormControl>
-                <AuthorsInput />
+                <AuthorsInput authors={authors} setAuthors={setAuthors} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-           <FormField
-          // control={form.control}
+        <FormField
           name="Institutions"
           render={({ field }) => (
             <FormItem>
@@ -128,7 +161,10 @@ const Articleform = () => {
                 Institutions
               </FormLabel>
               <FormControl>
-                <InstitutionsInput />
+                <InstitutionsInput
+                  institutions={institutions}
+                  setInstitutions={setInstitutions}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -136,7 +172,7 @@ const Articleform = () => {
         />
 
         <FormField
-          // control={form.control}
+          control={form.control}
           name="text"
           render={({ field }) => (
             <FormItem>
@@ -150,7 +186,6 @@ const Articleform = () => {
         />
 
         <FormField
-          // control={form.control}
           name="Keywords"
           render={({ field }) => (
             <FormItem>
@@ -158,16 +193,14 @@ const Articleform = () => {
                 Keywords
               </FormLabel>
               <FormControl>
-                <KeywordsInput />
+                <KeywordsInput keywords={keywords} setKeywords={setKeywords} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-     
 
         <FormField
-          // control={form.control}
           name="References"
           render={({ field }) => (
             <FormItem>
@@ -175,19 +208,17 @@ const Articleform = () => {
                 References
               </FormLabel>
               <FormControl>
-                <RefsInput />
+                <RefsInput refs={refs} setRefs={setRefs} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/*  */}
-
         <br />
 
         <Button type="submit" className="w-full  bg-blue-500">
-          Create Account
+          Save
         </Button>
       </form>
     </Form>

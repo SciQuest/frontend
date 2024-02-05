@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,9 +12,28 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 
-const Alert = () => {
+import api from "@/lib/api";
+
+const Alert = ({
+  article,
+  articles,
+  setArticles,
+}: {
+  article: any;
+  articles: any[];
+  setArticles: any;
+}) => {
+  async function handleDelete() {
+    try {
+      await api.delete(`/api/articles/${article.id}`);
+      setArticles(articles.filter((a) => a.id != article.id));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
       <AlertDialog>
@@ -39,7 +58,9 @@ const Alert = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={handleDelete}>
+              Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

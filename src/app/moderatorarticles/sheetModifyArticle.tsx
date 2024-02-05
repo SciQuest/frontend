@@ -10,7 +10,15 @@ import {
 import { AiFillEdit } from "react-icons/ai";
 
 import ArticleForm from "./article-form";
-const sheetModifyArticle = () => {
+const sheetModifyArticle = ({
+  article,
+  articles,
+  setArticles,
+}: {
+  article: any;
+  articles: any[];
+  setArticles: any;
+}) => {
   return (
     <Sheet>
       <SheetTrigger>
@@ -28,9 +36,11 @@ const sheetModifyArticle = () => {
         <SheetHeader>
           <SheetTitle>Edit Article</SheetTitle>
           <SheetDescription>
-            
-            <ArticleForm />
-            
+            <ArticleForm
+              article={article}
+              articles={articles}
+              setArticles={setArticles}
+            />
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
