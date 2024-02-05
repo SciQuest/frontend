@@ -3,6 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import api from "@/lib/api";
+import { ColorRing } from "react-loader-spinner";
 
 function UploadButton({
   articles,
@@ -34,7 +35,20 @@ function UploadButton({
     }
   };
 
-  if (loading) return <div>Uploading ...</div>;
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center"> 
+        <h1 className="text-blue-600 font-semibold text-lg">Loading...</h1>
+   <ColorRing
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="color-ring-loading"
+  wrapperStyle={{}}
+  wrapperClass="color-ring-wrapper"
+  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}/>
+      </div>
+    );
 
   return (
     <div className="flex mx-auto my-2 items-center justify-center">

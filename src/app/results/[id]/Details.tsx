@@ -11,6 +11,7 @@ import {
   BookOpenCheck,
   FileKey2,
 } from "lucide-react";
+import { ColorRing } from "react-loader-spinner";
 
 import api from "@/lib/api";
 
@@ -29,9 +30,9 @@ const Details = ({ id }: { id: string }) => {
         const favorites = response.data;
 
         setSavedState(favorites.some((article: any) => article.id == id));
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
-        setError("something went wrong (todo: update this message)");
+        setError(e.response.data.detail);
       }
       setLoading1(false);
     }
@@ -66,7 +67,21 @@ const Details = ({ id }: { id: string }) => {
     }
   };
 
-  if (loading1 || loading2) return <div>Loading</div>;
+  if (loading1 || loading2)
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-blue-600 font-semibold text-lg">Loading...</h1>
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    );
 
   if (error) return <div>{error}</div>;
 
@@ -149,7 +164,9 @@ const Details = ({ id }: { id: string }) => {
               <div>
                 <p>
                   {" "}
-                  <span className="font-semibold">{article.date.slice(0, 10)}</span>
+                  <span className="font-semibold">
+                    {article.date.slice(0, 10)}
+                  </span>
                 </p>
               </div>
             </div>
@@ -178,7 +195,7 @@ const Details = ({ id }: { id: string }) => {
                   </div>
 
                   <div className="flex flex-col my-3">
-                    {article.references.map((refs :string, i :number) => (
+                    {article.references.map((refs: string, i: number) => (
                       <p key={i} className="">
                         <span className="font-semibold text-lg md:text-xl text-blue-500">
                           [
@@ -196,7 +213,7 @@ const Details = ({ id }: { id: string }) => {
                       <h1 className="font-bold">Keywords</h1>
                     </div>
                     <div className=" mt-3 ">
-                      {article.keywords.map((keyword : string, i : number) => (
+                      {article.keywords.map((keyword: string, i: number) => (
                         <p key={i} className="">
                           <span className="font-semibold text-lg md:text-xl text-blue-500">
                             [

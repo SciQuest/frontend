@@ -56,7 +56,7 @@ const FavoritesArticles = () => {
       {articles.map((article, index) => (
         <div
           key={article.id}
-          className="bg-gray-200 shadow-xl max-w-[1000px] mx-5 md:mx-auto h-min-[300px] h-full max-h-[600px] md:h-max-[400px]  p-4 rounded-sm mt-4 "
+          className="bg-gray-200 shadow-xl max-w-[1000px] mx-5 md:mx-auto h-min-[300px] h-full  p-4 rounded-sm mt-4 "
         >
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
@@ -150,7 +150,7 @@ const FavoritesArticles = () => {
                   <Link
                     href={`/results/${article.id}`}
                     passHref
-                    className="border-b-2 border-blue-500 text-blue-500 font-normal"
+                    className="border-b-2 border-blue-500 text-blue-500 hover:text-blue-700 hover:border-blue-700 font-semibold"
                   >
                     Read more
                   </Link>

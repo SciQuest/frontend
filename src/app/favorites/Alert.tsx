@@ -19,8 +19,8 @@ const Alert = ({ onConfirm }: { onConfirm: () => {} }) => {
     <div>
       <AlertDialog>
         <AlertDialogTrigger>
-          <div className="flex flex-row cursor-pointer ring-2 px-3 md:px-4 py-2 bg-blue-500 text-white ring-blue-500 justify-center items-center rounded-xl hover:scale-105 hover:duration-100">
-            <p> Saved </p>
+          <div title="Remove from favorites" className="flex flex-row cursor-pointer ring-2 px-2 md:px-4 py-2 bg-blue-500 text-white ring-blue-500 justify-center items-center rounded-xl hover:scale-105 hover:duration-100">
+            <p className="hidden md:block"> Saved </p>
             <BookmarkCheck className="text-white" />
           </div>
         </AlertDialogTrigger>
