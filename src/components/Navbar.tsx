@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // import { close, logo, menu } from "../../public/assets";
 import logo from "../../public/assets/logo.svg";
@@ -94,30 +95,28 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      id: "/home",
+      id: "/",
       title: "Home",
     },
     {
       id: "/favorites",
       title: "Favorites",
     },
-    // {
-    //   id: "log out",
-    //   title: "Log out ",
-    // },
   ];
 
   return (
     <div className="">
       <nav className="w-full flex py-3  justify-between items-center  ">
-        <Image
-          priority
-          src={logo}
-          height={40}
-          width={140}
-          className="ml-5"
-          alt="SciQuest"
-        />
+        <Link href="/">
+          <Image
+            priority
+            src={logo}
+            height={40}
+            width={140}
+            className="ml-5"
+            alt="SciQuest"
+          />
+        </Link>
 
         <ul className="list-none sm:flex hidden justify-end items-center flex-1 mr-6 md:mr-10 ">
           {navLinks.map((nav, index) => (
@@ -128,7 +127,7 @@ const Navbar = () => {
               }`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`${nav.id}`}>{nav.title}</a>
+              <Link href={`${nav.id}`}>{nav.title}</Link>
             </li>
           ))}
           <li>
@@ -137,13 +136,6 @@ const Navbar = () => {
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
-          {/* <img
-          src={toggle ? close : menu}
-          alt="menu"
-          className="w-[28px] h-[28px] object-contain mr-5"
-          onClick={() => setToggle(!toggle)}
-        /> */}
-
           <Image
             priority
             src={toggle ? close : menu}
@@ -165,7 +157,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => setActive(nav.title)}
                 >
-                  <a href={`${nav.id}`}>{nav.title}</a>
+                  <Link href={`${nav.id}`}>{nav.title}</Link>
                 </li>
               ))}
               <li>

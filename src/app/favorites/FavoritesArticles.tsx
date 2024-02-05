@@ -65,29 +65,7 @@ const FavoritesArticles = () => {
                   {article.title}{" "}
                 </h1>
               </div>
-              {/* <div
-                    className={`flex flex-row cursor-pointer ring-2  py-2 justify-center items-center rounded-xl hover:scale-105 hover:duration-100 ${
-                      savedStates[index]
-                        ? "px-2 md:px-3 bg-blue-500 text-white ring-blue-500"
-                        : "px-3 md:px-4 bg-gray-100 ring-gray-500"
-                    }`}
-                    onClick={() => handleSaveClick(index)}
-                  >
-                    <p>{savedStates[index] ? "Saved" : "Save"}</p>
-                    {savedStates[index] ? (
-                      <BookmarkCheck className="text-white" />
-                    ) : (
-                      <Bookmark />
-                    )}
-                  </div> */}
-              {/* <div
-                    className={`px-2 md:px-3 bg-blue-500 text-white ring-blue-500 flex flex-row cursor-pointer ring-2  py-2 justify-center items-center rounded-xl hover:scale-105 hover:duration-100`}
-                
-                    onClick={() => handleSaveClick(index)}
-                  >
-                    <p>Read More</p>
-                    
-                  </div> */}
+
               <Alert onConfirm={() => removeFavoriteArticle(article)} />
             </div>
 
@@ -100,9 +78,6 @@ const FavoritesArticles = () => {
                   </span>
                 </p>
               </div>
-              {/* <div>
-                    {/* <p className=" text-black font-light">{article.institutions}</p> 
-                  </div> */}
             </div>
             <div className="flex flex-col md:flex-row justify-start md:space-x-6 text-sm md:text-base ">
               <div className=" mt-5 text-black font-light flex flex-row space-x-5 ">

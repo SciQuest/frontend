@@ -2,6 +2,7 @@ import { ProtectedComponent } from "@/lib/auth";
 import User from "./user";
 import PageContent from "./content";
 import AlertLogOut from "@/components/AlertLogOut";
+import Link from "next/link";
 
 export default function AdminPage() {
   return (
@@ -12,12 +13,12 @@ export default function AdminPage() {
           <User />
         </div>
         <div className="flex flex-row gap-x-2 md:gap-x-5 mr-2 md:mr-10">
-          <a href="adminmoderators ">
+          <Link href="adminmoderators ">
             <div className="bg-gray-300 sm:text-base text-sm rounded-lg px-2 sm:px-3 md:px-5 py-2 md:py-3 hover:bg-blue-500 hover:text-white hover:ring-blue-700">
               Moderators{" "}
             </div>
-          </a>
-          <AlertLogOut/>
+          </Link>
+          <AlertLogOut />
           <div className=" bg-white text-base md:text-xl px-2 sm:px-3 md:px-5 py-2 md:py-3">
             Articles
           </div>

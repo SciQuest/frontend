@@ -14,6 +14,7 @@ import {
 import { ColorRing } from "react-loader-spinner";
 
 import api from "@/lib/api";
+import Link from "next/link";
 
 const Details = ({ id }: { id: string }) => {
   const [savedState, setSavedState] = useState(false);
@@ -171,7 +172,7 @@ const Details = ({ id }: { id: string }) => {
               </div>
             </div>
             <div className="mt-3 p-3 md:p-5 border-t-2 border-blue-400">
-              <a
+              <Link
                 href={`${process.env.NEXT_PUBLIC_API_URL}${article.pdf}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -179,7 +180,7 @@ const Details = ({ id }: { id: string }) => {
               >
                 <BookOpenCheck />
                 <p>View PDF ?</p>
-              </a>
+              </Link>
               <div className="mt-4 text-black text-sm md:text-base ">
                 <p>{article.text}</p>
               </div>

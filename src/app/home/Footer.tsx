@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -9,9 +10,9 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-bold  uppercase ">Our team</h2>
             <ul className=" ">
               <li className="mb-4">
-                <a href="/home" className=" hover:underline">
+                <Link href="/" className=" hover:underline">
                   About Us
-                </a>
+                </Link>
               </li>
 
               <li className="mb-2">
@@ -26,14 +27,14 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-bold  uppercase ">Find Us</h2>
             <ul className="">
               <li className="mb-4">
-                <a href="/home" className="hover:underline">
+                <Link href="/" className="hover:underline">
                   Twitter
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="/home" className="hover:underline">
+                <Link href="/" className="hover:underline">
                   Facebook
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -41,15 +42,15 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-semibold uppercase ">Legal</h2>
             <ul className="">
               <li className="mb-4">
-                <a href="/home" className="hover:underline">
+                <Link href="/" className="hover:underline">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
 
               <li className="mb-4">
-                <a href="/home" className="hover:underline">
+                <Link href="/" className="hover:underline">
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -57,9 +58,9 @@ const Footer = () => {
         <div className="px-4 py-6 bg-gray-400  rounded-lg ">
           <p className="text-sm text-center">
             © 2023{" "}
-            <a href="/home" className="text-blue-700 font-bold">
+            <Link href="/" className="text-blue-700 font-bold">
               SciQuest™
-            </a>
+            </Link>
             . All rights reserved.
           </p>
         </div>

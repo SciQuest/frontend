@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import SheetModifyArticle from "./sheetModifyArticle";
 import Alert from "./Alert";
 import api from "@/lib/api";
+import Link from "next/link";
 
 function PageContent() {
   const [articles, setArticles] = useState<any[]>([]);
@@ -54,14 +55,14 @@ function PageContent() {
               </td>
               <td className="w-1/4 px-6 py-4">
                 <div className="flex items-center text-gray-900 font-semibold whitespace-nowrap">
-                  <a
+                  <Link
                     href={`${process.env.NEXT_PUBLIC_API_URL}${article.pdf}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className=" hover:text-blue-700 text-red-600 font-semibold flex flex-row  items-center  gap-2 w-[130px]"
                   >
                     <p>View PDF</p>
-                  </a>
+                  </Link>
                 </div>
               </td>
               <td className="w-1/4 px-6 py-4 flex flex-row">

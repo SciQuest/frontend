@@ -37,16 +37,17 @@ function UploadButton({
 
   if (loading)
     return (
-      <div className="flex flex-col justify-center items-center"> 
-        <h1 className="text-blue-600 font-semibold text-lg">Loading...</h1>
-   <ColorRing
-  visible={true}
-  height="80"
-  width="80"
-  ariaLabel="color-ring-loading"
-  wrapperStyle={{}}
-  wrapperClass="color-ring-wrapper"
-  colors={['#356FFF', '#356FFF', '#356FFF', '#356FFF', '#356FFF']}/>
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-blue-600 font-semibold text-lg">Uploading...</h1>
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={["#356FFF", "#356FFF", "#356FFF", "#356FFF", "#356FFF"]}
+        />
       </div>
     );
 

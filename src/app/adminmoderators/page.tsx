@@ -5,6 +5,7 @@ import AlertLogOut from "@/components/AlertLogOut";
 import User from "./user";
 import { ProtectedComponent } from "@/lib/auth";
 import ListModerators from "./ListModerators";
+import Link from "next/link";
 
 export default function AdminPage() {
   return (
@@ -14,11 +15,11 @@ export default function AdminPage() {
           <User />
         </div>
         <div className="flex flex-row gap-x-2 md:gap-x-5 mr-2 md:mr-10">
-          <a href="adminarticles">
+          <Link href="adminarticles">
             <div className=" bg-gray-300 text-sm sm:text-base rounded-lg px-2 sm:px-3 md:px-5 py-2 md:py-3  hover:bg-blue-500 hover:text-white hover:ring-blue-700">
               Articles
             </div>
-          </a>
+          </Link>
 
           <AlertLogOut />
 
