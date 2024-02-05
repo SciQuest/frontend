@@ -9,7 +9,7 @@ const Article = ({ articles }: { articles: any[] }) => {
       {articles.map((article, index) => (
         <div
           key={article.id}
-          className="bg-gray-200 shadow-xl max-w-[1000px] mx-5 md:mx-auto h-min-[300px] h-full max-h-[600px] md:h-max-[400px]  p-4 rounded-sm mt-4 "
+          className="bg-gray-200 shadow-xl max-w-[1000px] mx-5 md:mx-auto h-min-[300px] h-full p-4 rounded-sm mt-4 "
         >
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
