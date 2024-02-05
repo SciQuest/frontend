@@ -1,16 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import {
-  MdOutlineClose,
-  MdDeleteForever,
-  MdAdd,
-  MdCheck,
-} from "react-icons/md";
+import React from "react";
+import { MdOutlineClose, MdAdd } from "react-icons/md";
 import { Input } from "../ui/input";
 
-export default function AuthorsFilter({ onCancel, onApply }: any) {
-  const [authors, setAuthors] = useState([""]);
-
+export default function AuthorsFilter({ onClose, authors, setAuthors }: any) {
   //add an author input
   const addAuthor = () => {
     setAuthors([...authors, ""]);
@@ -18,15 +11,12 @@ export default function AuthorsFilter({ onCancel, onApply }: any) {
 
   //remove an author input
   const removeAuthor = (indexToRemove: any) => {
-    if (indexToRemove !== 0) {
-      const updatedAuthors = authors.filter(
-        (_, index) => index !== indexToRemove
-      );
-      setAuthors(updatedAuthors);
-    }
+    const updatedAuthors = authors.filter(
+      (_: any, index: number) => index !== indexToRemove
+    );
+    setAuthors(updatedAuthors);
   };
 
-  
   const handleAuthorChange = (index: any, value: any) => {
     const updatedAuthors = [...authors];
     updatedAuthors[index] = value;
@@ -50,24 +40,15 @@ export default function AuthorsFilter({ onCancel, onApply }: any) {
             </button>
             <button
               className="text-white ml-2 py-2 px-3 bg-red-500 hover:bg-red-600 hover:ease-in-out duration-100 rounded-lg flex items-center"
-              onClick={onCancel}
+              onClick={onClose}
             >
-              <h2 className="">Cancel</h2>
+              <h2 className="">Close</h2>
 
-              <MdDeleteForever size={15} />
-            </button>
-            <button
-              className="text-white ml-2 py-2 px-3 bg-green-500 hover:bg-green-600 hover:ease-in-out duration-100 rounded-lg flex items-center"
-              onClick={onApply}
-              
-            >
-              <h2 className="">Apply</h2>
-
-              <MdCheck size={15} />
+              <MdOutlineClose size={20} />
             </button>
           </div>
           <div>
-            {authors.map((author, index) => (
+            {authors.map((author: any, index: number) => (
               <div
                 key={index}
                 className="flex flex-row items-center my-4 gap-3"
@@ -78,17 +59,16 @@ export default function AuthorsFilter({ onCancel, onApply }: any) {
                   value={author}
                   onChange={(e) => handleAuthorChange(index, e.target.value)}
                 />
-                {index !== 0 && (
-                  <div className="">
-                    <button
-                      title="delete author"
-                      className="text-white place-self-end hover:bg-red-500 bg-red-600 hover:ease-in-out duration-100 rounded  p-2 lg:p-0 "
-                      onClick={() => removeAuthor(index)}
-                    >
-                      <MdOutlineClose size={20} />
-                    </button>
-                  </div>
-                )}
+
+                <div className="">
+                  <button
+                    title="delete author"
+                    className="text-white place-self-end hover:bg-red-500 bg-red-600 hover:ease-in-out duration-100 rounded  p-2 lg:p-0 "
+                    onClick={() => removeAuthor(index)}
+                  >
+                    <MdOutlineClose size={20} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

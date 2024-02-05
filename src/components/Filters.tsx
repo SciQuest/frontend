@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import AuthorsFilter from "./Filtering/AuthorsFilter";
 import InstitutionsFilter from "./Filtering/InstitutionsFilter";
 import KeywordsFilter from "./Filtering/KeywordsFilter";
@@ -18,6 +17,40 @@ const Filters: React.FC<FiltersProps> = ({ filterQuery, setFilterQuery }) => {
     useState(false);
   const [isDateFilterVisible, setIsDateFilterVisible] = useState(false);
 
+  const [keywords, setKeywords] = useState([]);
+  const [institutions, setInstitutions] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
+  useEffect(() => {
+    let query = "";
+
+    if (keywords) {
+      for (const keyword of keywords) {
+        query += `keywords__term=${keyword}&`;
+      }
+    }
+
+    if (authors) {
+      for (const author of authors) {
+        query += `authors__term=${author}&`;
+      }
+    }
+
+    if (institutions) {
+      for (const institution of institutions) {
+        query += `institutions__term=${institution}&`;
+      }
+    }
+
+    if (startDate && endDate) {
+      query += `date__range=${startDate}__${endDate}&`;
+    }
+
+    setFilterQuery(query);
+  }, [keywords, institutions, authors, startDate, endDate, setFilterQuery]);
+
   const toggleAuthorsFilter = () => {
     setIsAuthorsFilterVisible(!isAuthorsFilterVisible);
   };
@@ -34,7 +67,7 @@ const Filters: React.FC<FiltersProps> = ({ filterQuery, setFilterQuery }) => {
     setIsDateFilterVisible(!isDateFilterVisible);
   };
 
-  const handleCancel = (filterType: any) => {
+  const handleClose = (filterType: any) => {
     // Close the modal without saving inputs
     switch (filterType) {
       case "Authors":
@@ -55,31 +88,6 @@ const Filters: React.FC<FiltersProps> = ({ filterQuery, setFilterQuery }) => {
     }
   };
 
-  const handleApply = (filterType: any, filterData: any) => {
-    // Apply the inputs and close the modal
-    setFilterQuery((prevFilterQuery: any) => ({
-      ...prevFilterQuery,
-      [filterType]: filterData,
-    }));
-
-    switch (filterType) {
-      case "Authors":
-        setIsAuthorsFilterVisible(false);
-        break;
-      case "Keywords":
-        setIsKeywordsFilterVisible(false);
-        break;
-      case "Institutions":
-        setIsInstitutionsFilterVisible(false);
-        break;
-      case "Date":
-        setIsDateFilterVisible(false);
-        break;
-
-      default:
-        break;
-    }
-  };
   return (
     <div>
       <div className="hidden lg:block   text-left ">
@@ -117,26 +125,32 @@ const Filters: React.FC<FiltersProps> = ({ filterQuery, setFilterQuery }) => {
 
       {isAuthorsFilterVisible && (
         <AuthorsFilter
-          onCancel={() => handleCancel("Authors")}
-          onApply={(data: any) => handleApply("Authors", data)}
+          onClose={() => handleClose("Authors")}
+          authors={authors}
+          setAuthors={setAuthors}
         />
       )}
       {isKeywordsFilterVisible && (
         <KeywordsFilter
-          onCancel={() => handleCancel("Keywords")}
-          onApply={(data: any) => handleApply("Keywords", data)}
+          onClose={() => handleClose("Keywords")}
+          keywords={keywords}
+          setKeywords={setKeywords}
         />
       )}
       {isInstitutionsFilterVisible && (
         <InstitutionsFilter
-          onCancel={() => handleCancel("Institutions")}
-          onApply={(data: any) => handleApply("Institutions", data)}
+          onClose={() => handleClose("Institutions")}
+          institutions={institutions}
+          setInstitutions={setInstitutions}
         />
       )}
       {isDateFilterVisible && (
         <DateFilter
-          onCancel={() => handleCancel("Date")}
-          onApply={(data: any) => handleApply("Date", data)}
+          onClose={() => handleClose("Date")}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
         />
       )}
     </div>

@@ -6,27 +6,23 @@ import {
   MdAdd,
   MdCheck,
 } from "react-icons/md";
-import { useState } from "react";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 import { Input } from "../ui/input";
 
-export default function InstitutionsFilter({ onCancel, onApply }: any) {
-  const [institutions, setInstitutions] = useState([""]);
-
+export default function InstitutionsFilter({
+  onClose,
+  institutions,
+  setInstitutions,
+}: any) {
   const addInstitution = () => {
     setInstitutions([...institutions, ""]);
   };
 
   const removeInstitution = (indexToRemove: any) => {
-    if (indexToRemove !== 0) {
-      const updatedInstitutions = institutions.filter(
-        (_, index) => index !== indexToRemove
-      );
-      setInstitutions(updatedInstitutions);
-    }
+    const updatedInstitutions = institutions.filter(
+      (_: any, index: number) => index !== indexToRemove
+    );
+    setInstitutions(updatedInstitutions);
   };
 
   const handleInstitutionChange = (index: any, value: any) => {
@@ -50,24 +46,15 @@ export default function InstitutionsFilter({ onCancel, onApply }: any) {
             </button>
             <button
               className="text-white ml-2 py-2 px-3 bg-red-500 hover:bg-red-600 hover:ease-in-out duration-100 rounded-lg flex items-center"
-              onClick={onCancel}
+              onClick={onClose}
             >
-              <h2 className="">Cancel</h2>
+              <h2 className="">Close</h2>
 
-              <MdDeleteForever size={15} />
-            </button>
-            <button
-              className="text-white ml-2 py-2 px-3 bg-green-500 hover:bg-green-600 hover:ease-in-out duration-100 rounded-lg flex items-center"
-              // onClick={() => {setFilters([])}}
-              onClick={onApply}
-            >
-              <h2 className="">Apply</h2>
-
-              <MdCheck size={15} />
+              <MdOutlineClose size={20} />
             </button>
           </div>
           <div>
-            {institutions.map((institution: any, index: any) => (
+            {institutions.map((institution: any, index: number) => (
               <div
                 key={index}
                 className="flex flex-row  items-center my-4 gap-3"
@@ -80,16 +67,14 @@ export default function InstitutionsFilter({ onCancel, onApply }: any) {
                     handleInstitutionChange(index, e.target.value)
                   }
                 />
-                {index !== 0 && (
-                  <div className="">
-                    <button
-                      className="text-white place-self-end hover:bg-red-500 bg-red-600 hover:ease-in-out duration-100 rounded  p-2 lg:p-0"
-                      onClick={() => removeInstitution(index)}
-                    >
-                      <MdOutlineClose size={20} />
-                    </button>
-                  </div>
-                )}
+                <div className="">
+                  <button
+                    className="text-white place-self-end hover:bg-red-500 bg-red-600 hover:ease-in-out duration-100 rounded  p-2 lg:p-0"
+                    onClick={() => removeInstitution(index)}
+                  >
+                    <MdOutlineClose size={20} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

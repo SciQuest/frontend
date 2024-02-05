@@ -13,7 +13,7 @@ function PageContent({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const [searchQuery, setSearchQuery] = useState<any>(searchParams);
-  const [filterQuery, setFilterQuery] = useState<any[]>([]);
+  const [filterQuery, setFilterQuery] = useState("");
   const [articles, setArticles] = useState<any[]>([]);
 
   useEffect(() => {
@@ -24,10 +24,7 @@ function PageContent({
         query += `search_multi_match=${searchQuery["search_multi_match"]}&`;
       }
 
-      Object.entries(filterQuery).forEach(([key, val]) => {
-        query += `${key}=${val}&`;
-      });
-
+      query += filterQuery;
       query = query.slice(0, -1);
 
       try {
