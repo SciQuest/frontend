@@ -5,7 +5,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }: any) => {
   return (
     <div className="  mx-auto max-w-[850px] w-full  justify-center text-center text-black p-4">
       <div className=" flex flex-col">
-        <form className=" flex ld:flex-row flex-col justify-center   ">
+        <div className=" flex ld:flex-row flex-col justify-center   ">
           <div className="w-full ">
             <label className="mb-2 text-sm font-medium text-gray-900 sr-only ">
               Rechercher
@@ -43,7 +43,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }: any) => {
               />
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
